@@ -1,4 +1,6 @@
-perun-lang
-==========
+## Perun Language
 
-general purpose programming language
+Perun is general purpose programming language.
+
+[High level design](doc/design.md)
+
