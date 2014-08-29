@@ -78,7 +78,7 @@ and provide core libraries.
 
 
 TODO think about it
- * concurrency - message passing (no shared state)
+ * concurrency - message passing (no shared state) http://en.wikipedia.org/wiki/Actor_model
  * immutability
  * no nulls - don't want nulls but how to avoid them? Introducing 'dummy' objects?
  * function overloading - 
