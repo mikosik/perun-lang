@@ -5,30 +5,44 @@ All grammar in this specification is defined in [Antl4](http://www.antlr.org/).
 
 
 ```
-package: packageIdentifier '{' packageElement* '}'
-packageElement: class | function
+compilationUnit:  ( class | function )* ;
 
-class: identifier '{' field* method* '}'
-field: variableDeclaration ';'
-method: function
+class: IDENTIFIER '{' field* method* '}' ;
+field: variable ';' ;
+method: function ';' ;
 
-function: functionName '(' parameterList? ')' result '{' statement* '}'
-functionName: identifier
-parameterList: parameter (',' parameter)*
-parameter: variableDeclaration
+function: (IDENTIFIER)? functionType '{' statement* '}' ;
+functionType: '(' parameterList? ')' type
+parameterList: variable (',' variable)* ;
 
-statement: assignment | TODO
+statement: ( assignment | declaration | expression ) ';' ;
+
+assignment: assignmentLeft '=' assignmentRight ;
+assignmentLeft: variable | variableName ;
+assignmentRight: declaration | expression ;
+
+declaration: function | class ;
+
+expression: ( callable | expression ) call ;
+callable: function | qualifiedIdentifier ;
+call: '(' argumentList ')' ;
+argumentList: expression ( ',' expression )*
+
+variable: variableName type ;
+variableName: identifier ;
+type: classType | functionType ;
+classType: qualifiedIdentifier ;
 
 
-variableDeclaration: variableName variableType
-variableName: identifier
-variableType: identifier
+// TODO handle comments
 
+qualifiedIdentifier: IDENTIFIER ( ':' IDENTIFIER )* ;
 
 IDENTIFIER: FIRST_CHAR ( FIRST_CHAR | OTHER_CHAR )* ;
 fragment FIRST_CHAR: 'a'..'z' | 'A'..'Z' | '_' ;
 fragment OTHER_CHAR: '0'..'9' | '_' | ;
 
 ```
+
 
 
